@@ -1,4 +1,5 @@
 import * as tuitsDao from '../../tuits/tuits-dao.js'
+import axios from 'axios';
 
 const createTuit = async (req, res) => {
     const newTuit = req.body;
@@ -29,9 +30,39 @@ const deleteTuit = async (req, res) => {
     res.json(status);
 }
 
+export const getPhotoReferences = async (place_id) => {
+    const response = (await axios.get(`https://maps.googleapis.com/maps/api/place/details/json?placeid=${place_id}&key=AIzaSyDD0GxnUVXCqw-diJgj35DY_uOOVb8HJBE`));
+    const photoReferences = [];
+        response.data.result.photos.forEach(function (photo) {
+        var ref = photo.photo_reference;
+        photoReferences.push(ref);
+    });
+    //console.log(photoReferences);
+    return photoReferences;
+};
+
+export const getPhotos = async (req, res) => {
+    const place_id = req.params.place_id;
+    const photos = getPhotoReferences(place_id);
+    const images = [];
+    for (const photo of (await photos)) {
+        const response = (await axios.get(`https://maps.googleapis.com/maps/api/place/photo?maxwidth=600&photo_reference=${photo}&key=AIzaSyDD0GxnUVXCqw-diJgj35DY_uOOVb8HJBE`));
+        images.push(response.config.url);
+    }
+    res.json(images);
+};
+
+export const getSomething = async (req, res) => {
+    const place_id = req.params.place_id;
+    console.log(place_id);
+    res.json(JSON.stringify(place_id));
+};
+
 export default (app) => {
     app.post('/api/tuits', createTuit);
     app.get('/api/tuits', findTuits);
     app.put('/api/tuits/:tid', updateTuit);
     app.delete('/api/tuits/:tid', deleteTuit);
+    app.get('/api/tuits/getPhotos/:place_id', getPhotos);
+    app.get('/api/tuits/getSomething/:place_id', getSomething);
 }
