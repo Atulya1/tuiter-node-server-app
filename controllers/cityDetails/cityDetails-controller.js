@@ -31,6 +31,12 @@ const findCityDetailsById  = async (req, res) => {
     const cityDetails = await cityDetailsDao.findCityDetailsById(cityId);
     res.json(cityDetails);
 }
+
+export const findCityDetailsByIdFunction = async (cityId) => {
+    console.log(cityId);
+    const cityDetails = await cityDetailsDao.findCityDetailsById(cityId);
+    return cityDetails;
+}
 export default (app) => {
     app.get('/api/city/getCityDetails', findCityDetails);
     app.get('/api/city/getCityDetails/:cityId',findCityDetailsById);

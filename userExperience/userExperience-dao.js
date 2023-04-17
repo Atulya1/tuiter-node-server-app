@@ -5,3 +5,5 @@ export const deleteUserExperience = (userExperienceid) => userExperienceModel.de
 export const updateUserExperience = (userExperienceid, userExperience) => userExperienceModel.updateOne({_id: userExperienceid}, {$set: userExperience})
 
 export const findUserExperienceById = (userExperienceId) => userExperienceModel.findOne({_id: userExperienceId});
+
+export const findUserExperienceByUserId = (userId) => userExperienceModel.find({user_id: userId});

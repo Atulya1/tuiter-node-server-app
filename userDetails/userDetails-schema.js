@@ -8,7 +8,7 @@ const userDetailsSchema = new Schema({
         lastName: String,
     },
     email: String,
-    dob: Date,
+    dob: String,
     phone_number: String,
     photo :String
 },{collection:'userDetails'})
