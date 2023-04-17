@@ -1,4 +1,4 @@
-import * as userDetailsDao from "../../tuits/userDetails-dao.js";
+import * as userDetailsDao from "../../userDetails/userDetails-dao.js";
 import axios from "axios";
 import * as tuitsDao from "../../tuits/tuits-dao.js";
 
