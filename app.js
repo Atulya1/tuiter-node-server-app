@@ -5,7 +5,10 @@ import UserController
     from "./controllers/users/users-controller.js"
 import TuitsController
     from "./controllers/tuits/tuits-controller.js";
-import UserDetailsController from "./controllers/tuits/userDetails-controller.js";
+import UserDetailsController from "./controllers/userDetails/userDetails-controller.js";
+import UserExperienceController from "./controllers/userExperiences/userExperience-controller.js";
+import BucketListController from "./controllers/bucketList/bucketList-controller.js";
+import BookingsController from "./controllers/bookings/bookings-controller.js";
 import mongoose from "mongoose";
 const CONNECTION_STRING = process.env.DB_CONNECTION_STRING
     || 'mongodb+srv://webdevproject:chetanaatul@travel-plus.jiabsqz.mongodb.net/wanderer?retryWrites=true&w=majority'
@@ -17,5 +20,9 @@ TuitsController(app);
 HelloController(app)
 UserController(app)
 UserDetailsController(app)
+UserExperienceController(app)
+BucketListController(app)
+BookingsController(app)
+
 
 app.listen(process.env.PORT || 4000);
