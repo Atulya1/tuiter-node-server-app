@@ -9,6 +9,8 @@ import UserDetailsController from "./controllers/userDetails/userDetails-control
 import UserExperienceController from "./controllers/userExperiences/userExperience-controller.js";
 import BucketListController from "./controllers/bucketList/bucketList-controller.js";
 import BookingsController from "./controllers/bookings/bookings-controller.js";
+import CityDetailsController from "./controllers/cityDetails/cityDetails-controller.js";
+import UpcomingTripsController from "./controllers/upcomingTrips/upcomingTrips-controller.js";
 import mongoose from "mongoose";
 const CONNECTION_STRING = process.env.DB_CONNECTION_STRING
     || 'mongodb+srv://webdevproject:chetanaatul@travel-plus.jiabsqz.mongodb.net/wanderer?retryWrites=true&w=majority'
@@ -23,6 +25,9 @@ UserDetailsController(app)
 UserExperienceController(app)
 BucketListController(app)
 BookingsController(app)
+CityDetailsController(app)
+UpcomingTripsController(app)
+
 
 
 app.listen(process.env.PORT || 4000);
