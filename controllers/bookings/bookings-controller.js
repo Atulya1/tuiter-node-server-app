@@ -1,4 +1,6 @@
 import * as bookingsDao from "../../bookings/bookings-dao.js";
+import * as cityDetailsDao from "../../cityDetails/cityDetails-dao.js";
+import * as upcomingTripsDao from "../../upcomingTrips/upcomingTrips-dao.js";
 
 const findBookings  = async (req, res) => {
     const bookings = await bookingsDao.findBookings();
@@ -30,10 +32,25 @@ const findBookingsById  = async (req, res) => {
     const booking = await bookingsDao.findBookingsById(bookingId);
     res.json(booking);
 }
+const findBookingsByUserId  = async (req, res) => {
+    const userId = req.body.userId;
+    const booking = await bookingsDao.findBookingsByUserId(userId);
+    if(booking.length == 0) {
+        res.json({status:204, message:"No Trips Found"});
+    } else {
+        const trip_details = [];
+        for (var i = 0; i < booking.length; i++) {
+            const trip_detail = await upcomingTripsDao.findUpcomingTripById(booking[i].trip_id);
+            trip_details.push(trip_detail);
+        }
+        res.json(trip_details);
+    }
+}
 export default (app) => {
     app.get('/api/bookings/getBookings', findBookings);
-    app.get('/api/bookings/getBookingsById/:bookingId',findBookingsById);
-    app.post('/api/bookings/addBookings',addBookings);
+    app.get('/api/bookings/getBookingsById/:bookingId', findBookingsById);
+    app.post('/api/bookings/addBookings', addBookings);
+    app.post('/api/bookings/findBookingsByUserId', findBookingsByUserId);
     app.put('/api/bookings/updateBookings/:bookingId',updateBookings);
     app.delete('/api/bookings/deleteBookings/:bookingId',deleteBookings);
 }

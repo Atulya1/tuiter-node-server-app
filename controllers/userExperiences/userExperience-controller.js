@@ -36,9 +36,22 @@ const findUserExperienceById  = async (req, res) => {
     const userExperienceDetails = await userExperienceDao.findUserExperienceById(userExperienceId)
     res.json(userExperienceDetails);
 }
+
+const findUserExperienceByUserId  = async (req, res) => {
+    const userId = req.body.userId;
+    console.log(userId);
+    const userExperienceDetails = await userExperienceDao.findUserExperienceByUserId(userId);
+    if(userExperienceDetails.length == 0) {
+        res.json({status:204, message:"No Experience Found"});
+    } else {
+        res.json(userExperienceDetails);
+    }
+}
+
 export default (app) => {
     app.get('/api/user/getUserExperience', findUserExperience);
     app.get('/api/user/getUserExperience/:userExperienceId',findUserExperienceById);
+    app.post('/api/user/getUserExperiencebyUserId',findUserExperienceByUserId);
     app.post('/api/user/addUserExperience',addUserExperience);
     app.put('/api/user/updateUserExperience/:userExperienceId',updateUserExperience);
     app.delete('/api/user/deleteUserExperience/:userExperienceId',deleteUserExperience);

@@ -5,3 +5,5 @@ export const deleteBookings = (bookingsId) => bookingsModel.deleteOne({_id: book
 export const updateBookings = (bookingsId, bookings) => bookingsModel.updateOne({_id: bookingsId}, {$set: bookings})
 
 export const findBookingsById = (bookingsId) => bookingsModel.findOne({_id: bookingsId});
+
+export const findBookingsByUserId = (userId) => bookingsModel.find({user_id: userId});

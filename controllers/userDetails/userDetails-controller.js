@@ -1,6 +1,4 @@
 import * as userDetailsDao from "../../userDetails/userDetails-dao.js";
-import axios from "axios";
-import * as tuitsDao from "../../tuits/tuits-dao.js";
 
 const findUser  = async (req, res) => {
     const user = await userDetailsDao.findUser();
@@ -9,7 +7,6 @@ const findUser  = async (req, res) => {
 
 const addUser = async (req, res) => {
     const newUser = req.body;
-    console.log(newUser);
     const insertedUser = await userDetailsDao
         .createUser(newUser);
     res.json(insertedUser);
@@ -33,12 +30,43 @@ const deleteUser = async (req, res) => {
 
 const findUserById  = async (req, res) => {
     const userId = req.params.userId;
-    console.log(userId);
     const userDetails = await userDetailsDao.findUserById(userId)
     res.json(userDetails);
 }
+
+const checkUsername = async (req, res) => {
+    const user = req.body.username;
+    console.log(user);
+    const username = await userDetailsDao
+        .findUserByUsername(user);
+    if(username) {
+        res.json({status:200, message:"Found"});
+    } else {
+        res.json({status:404,message:"Not Found"});
+    }
+}
+
+const checkLoginCredentials = async (req, res) => {
+    const userName = req.body.username;
+    const password = req.body.password;
+    const user = await userDetailsDao
+        .findUserByUsername(userName);
+    if(user) {
+        if(password === user.password) {
+            res.json({status:200, message:"Found"});
+        } else {
+            res.json({status:404,message:"Password Incorrect"});
+        }
+    } else {
+        res.json({status:404,message:"Username or Password Incorrect"});
+    }
+
+}
+
 export default (app) => {
     app.get('/api/user/getUser', findUser);
+    app.post('/api/user/checkUsername', checkUsername);
+    app.post('/api/user/checkLoginCredentials',checkLoginCredentials);
     app.get('/api/user/getUser/:userId',findUserById);
     app.post('/api/user/addUser',addUser);
     app.put('/api/user/updateUser/:userId',updateUser);
