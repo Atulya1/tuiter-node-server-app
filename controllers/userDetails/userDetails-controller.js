@@ -53,7 +53,7 @@ const checkLoginCredentials = async (req, res) => {
         .findUserByUsername(userName);
     if(user) {
         if(password === user.password) {
-            res.json({status:200, message:"Found"});
+            res.json({status:200, message:user});
         } else {
             res.json({status:404,message:"Password Incorrect"});
         }
