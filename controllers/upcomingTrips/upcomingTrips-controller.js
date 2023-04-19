@@ -1,4 +1,6 @@
 import * as upcomingTripsDao from "../../upcomingTrips/upcomingTrips-dao.js";
+import * as cityDetailsDao from "../../cityDetails/cityDetails-dao.js";
+
 
 const findUpcomingTrip  = async (req, res) => {
     const upcomingTrip = await upcomingTripsDao.findUpcomingTrip();
@@ -10,7 +12,7 @@ const addUpcomingTrip = async (req, res) => {
     console.log(newUpcomingTrip);
     const insertedUpcomingTrip = await upcomingTripsDao
         .createUpcomingTrip(newUpcomingTrip);
-    res.json(insertedUpcomingTrip);
+    res.json({status:200,message:insertedUpcomingTrip});
 }
 
 const updateUpcomingTrip = async (req, res) => {

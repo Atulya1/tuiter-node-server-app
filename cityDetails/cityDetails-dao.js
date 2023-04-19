@@ -5,3 +5,4 @@ export const deleteCityDetails = (cityId) => cityDetailsModel.deleteOne({_id: ci
 export const updateCityDetails = (cityId, cityDetails) => cityDetailsModel.updateOne({_id: cityId}, {$set: cityDetails})
 
 export const findCityDetailsById = (cityId) => cityDetailsModel.findOne({_id: cityId});
+export const findCityIdByPlaceId = (place_id) => cityDetailsModel.findOne({place_id: place_id});
