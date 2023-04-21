@@ -1,4 +1,5 @@
 import * as cityDetailsDao from "../../cityDetails/cityDetails-dao.js";
+import {findCityIdByPlaceId} from "../../cityDetails/cityDetails-dao.js";
 
 const findCityDetails  = async (req, res) => {
     const cityDetails = await cityDetailsDao.findCityDetails();
@@ -37,9 +38,18 @@ export const findCityDetailsByIdFunction = async (cityId) => {
     const cityDetails = await cityDetailsDao.findCityDetailsById(cityId);
     return cityDetails;
 }
+
+const findCityDetailsByPlaceId  = async (req, res) => {
+    const placeId = req.params.placeId;
+    console.log("Place Id",placeId);
+    const cityDetails = await cityDetailsDao.findCityIdByPlaceId(placeId);
+    res.json(cityDetails);
+}
+
 export default (app) => {
     app.get('/api/city/getCityDetails', findCityDetails);
     app.get('/api/city/getCityDetails/:cityId',findCityDetailsById);
+    app.get('/api/city/getCityDetailsByPlaceId/:placeId',findCityDetailsByPlaceId);
     app.post('/api/city/addCityDetails', addCityDetails);
     app.put('/api/city/updateCityDetails/:cityId', updateCityDetails);
     app.delete('/api/city/deleteCityDetails/:cityId', deleteCityDetails);

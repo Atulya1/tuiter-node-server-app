@@ -12,6 +12,11 @@ const addUser = async (req, res) => {
     res.json({status:200,message:insertedUser});
 }
 
+const logout = async (req, res) => {
+    // currentUser = null;
+    // req.session.destroy();
+    res.sendStatus(200);
+};
 const updateUser = async (req, res) => {
     const userIdToUpdate = req.params.userId;
     const updates = req.body;
@@ -68,6 +73,7 @@ export default (app) => {
     app.post('/api/user/checkUsername', checkUsername);
     app.post('/api/user/checkLoginCredentials',checkLoginCredentials);
     app.get('/api/user/getUser/:userId',findUserById);
+    app.post("/api/user/logout", logout);
     app.post('/api/user/addUser',addUser);
     app.put('/api/user/updateUser/:userId',updateUser);
     app.delete('/api/user/deleteUser/:userId',deleteUser);

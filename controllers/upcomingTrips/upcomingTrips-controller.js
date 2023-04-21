@@ -12,7 +12,7 @@ const addUpcomingTrip = async (req, res) => {
     console.log(newUpcomingTrip);
     const insertedUpcomingTrip = await upcomingTripsDao
         .createUpcomingTrip(newUpcomingTrip);
-    res.json({status:200,message:insertedUpcomingTrip});
+    res.json({status:200, message:insertedUpcomingTrip});
 }
 
 const updateUpcomingTrip = async (req, res) => {

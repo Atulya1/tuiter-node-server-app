@@ -1,5 +1,4 @@
 import * as bookingsDao from "../../bookings/bookings-dao.js";
-import * as cityDetailsDao from "../../cityDetails/cityDetails-dao.js";
 import * as upcomingTripsDao from "../../upcomingTrips/upcomingTrips-dao.js";
 
 const findBookings  = async (req, res) => {
@@ -9,9 +8,8 @@ const findBookings  = async (req, res) => {
 
 const addBookings = async (req, res) => {
     const bookings = req.body;
-    console.log(bookings);
-    const insertedBookings = await bookingsDao.createBookings(bookings);
-    res.json(insertedBookings);
+        const insertedBookings = await bookingsDao.createBookings(bookings);
+        res.json(insertedBookings);
 }
 
 const updateBookings = async (req, res) => {
