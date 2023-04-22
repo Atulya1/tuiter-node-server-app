@@ -9,7 +9,7 @@ const addUser = async (req, res) => {
     const newUser = req.body;
     const insertedUser = await userDetailsDao
         .createUser(newUser);
-    res.json({status:200,message:insertedUser});
+    res.json({status:200, message: insertedUser});
 }
 
 const logout = async (req, res) => {

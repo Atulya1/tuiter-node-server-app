@@ -10,13 +10,13 @@ const userExperiencesSchema = new Schema({
         heading: String,
         description: String
     },
-    places_visited: [],
-    photos: [],
-    date_of_review: Date,
+    places_visited: String,
+    photos: String,
+    date_of_review: String,
     estimated_expenses: Number,
-    places_to_eat: [],
-    places_to_shop: [],
-    itinerary: []
+    places_to_eat: String,
+    places_to_shop: String,
+    itinerary: String
 },{collection:'userExperience'})
 
 export default userExperiencesSchema;

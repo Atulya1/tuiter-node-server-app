@@ -11,7 +11,7 @@ const addUserExperience = async (req, res) => {
     console.log(newUserExperience);
     const insertedUserExperience = await userExperienceDao
         .createUserExperience(newUserExperience);
-    res.json(insertedUserExperience);
+    res.json({status:200, message: insertedUserExperience});
 }
 
 const updateUserExperience = async (req, res) => {
