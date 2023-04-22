@@ -30,9 +30,26 @@ const findBookingsById  = async (req, res) => {
     const booking = await bookingsDao.findBookingsById(bookingId);
     res.json(booking);
 }
+// const findBookingsByUserId  = async (req, res) => {
+//     const userId = req.body.userId;
+//     console.log("server userid",userId);
+//     const booking = await bookingsDao.findBookingsByUserId(userId);
+//     if(booking.length == 0) {
+//         res.json({status:204, message:"No Trips Found"});
+//     } else {
+//         const trip_details = [];
+//         for (var i = 0; i < booking.length; i++) {
+//             const trip_detail = await upcomingTripsDao.findUpcomingTripById(booking[i].trip_id);
+//             trip_details.push(trip_detail);
+//         }
+//         res.json(trip_details);
+//     }
+// }
+
 const findBookingsByUserId  = async (req, res) => {
-    const userId = req.body.userId;
+    const userId = req.params.userId;
     const booking = await bookingsDao.findBookingsByUserId(userId);
+    console.log(userId,booking)
     if(booking.length == 0) {
         res.json({status:204, message:"No Trips Found"});
     } else {
@@ -44,11 +61,21 @@ const findBookingsByUserId  = async (req, res) => {
         res.json(trip_details);
     }
 }
+// export default (app) => {
+//     app.get('/api/bookings/getBookings', findBookings);
+//     app.get('/api/bookings/getBookingsById/:bookingId', findBookingsById);
+//     app.post('/api/bookings/addBookings', addBookings);
+//     app.post('/api/bookings/findBookingsByUserId', findBookingsByUserId);
+//     app.put('/api/bookings/updateBookings/:bookingId',updateBookings);
+//     app.delete('/api/bookings/deleteBookings/:bookingId',deleteBookings);
+//
+// }
+
 export default (app) => {
     app.get('/api/bookings/getBookings', findBookings);
     app.get('/api/bookings/getBookingsById/:bookingId', findBookingsById);
     app.post('/api/bookings/addBookings', addBookings);
-    app.post('/api/bookings/findBookingsByUserId', findBookingsByUserId);
+    app.get('/api/bookings/findBookingsByUserId/:userId', findBookingsByUserId);
     app.put('/api/bookings/updateBookings/:bookingId',updateBookings);
     app.delete('/api/bookings/deleteBookings/:bookingId',deleteBookings);
 }

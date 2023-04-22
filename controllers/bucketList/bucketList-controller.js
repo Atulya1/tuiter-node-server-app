@@ -34,7 +34,7 @@ const findBucketListItemById  = async (req, res) => {
 }
 
 const findBucketListItemForUser  = async (req, res) => {
-    const userId = req.body.user_id;
+    const userId = req.params.userId;
     const bucketListItem = await bucketListDao.findAllBucketListItemsForUser(userId);
     if(bucketListItem.length == 0) {
         res.json({status:204,message:"Bucket List Empty"});
@@ -49,7 +49,7 @@ const findBucketListItemForUser  = async (req, res) => {
 }
 export default (app) => {
     app.get('/api/bucketList/getBucketList', findBucketListItem);
-    app.post('/api/bucketList/getBucketListForUser', findBucketListItemForUser);
+    app.get('/api/bucketList/getBucketListForUser/:userId', findBucketListItemForUser);
     app.get('/api/bucketList/getBucketListItemById/:bucketListId',findBucketListItemById);
     app.post('/api/bucketList/addBucketListItem',addBucketListItem);
     app.put('/api/bucketList/updateBucketListItem/:bucketListId',updateBucketListItem);
