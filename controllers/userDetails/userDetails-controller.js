@@ -20,10 +20,12 @@ const logout = async (req, res) => {
 const updateUser = async (req, res) => {
     const userIdToUpdate = req.params.userId;
     const updates = req.body;
+    console.log("user id",userIdToUpdate);
+    console.log("updates",updates);
     const status = await userDetailsDao
         .updateUser(userIdToUpdate,
             updates);
-    res.json(status);
+    res.json({ ...updates, _id: userIdToUpdate } );
 
 }
 const deleteUser = async (req, res) => {

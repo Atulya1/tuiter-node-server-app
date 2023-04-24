@@ -10,12 +10,12 @@ const userExperiencesSchema = new Schema({
         heading: String,
         description: String
     },
-    places_visited: String,
+    places_visited: Array,
     photos: String,
     date_of_review: String,
     estimated_expenses: Number,
-    places_to_eat: String,
-    places_to_shop: String,
+    places_to_eat: Array,
+    places_to_shop: Array,
     itinerary: String
 },{collection:'userExperience'})
 
