@@ -43,7 +43,11 @@ const findCityDetailsByPlaceId  = async (req, res) => {
     const placeId = req.params.placeId;
     console.log("Place Id",placeId);
     const cityDetails = await cityDetailsDao.findCityIdByPlaceId(placeId);
-    res.json(cityDetails);
+    if(cityDetails) {
+        res.json({message: cityDetails, status: 200});
+    } else {
+        res.json({message: "Not Found", status: 404})
+    }
 }
 
 export default (app) => {

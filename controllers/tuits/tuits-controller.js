@@ -33,23 +33,30 @@ const deleteTuit = async (req, res) => {
 export const getPhotoReferences = async (place_id) => {
     const response = (await axios.get(`https://maps.googleapis.com/maps/api/place/details/json?placeid=${place_id}&key=AIzaSyDD0GxnUVXCqw-diJgj35DY_uOOVb8HJBE`));
     const photoReferences = [];
+    if(response.data.result.photos) {
         response.data.result.photos.forEach(function (photo) {
-        var ref = photo.photo_reference;
-        photoReferences.push(ref);
-    });
+            var ref = photo.photo_reference;
+            photoReferences.push(ref);
+        });
+    }
+    let URL = "";
+    if(response.data.result.url) {
+        URL = response.data.result.url;
+    }
     //console.log(photoReferences);
-    return photoReferences;
+    return ({photoReferences: photoReferences, url: URL});
 };
 
 export const getPhotos = async (req, res) => {
     const place_id = req.params.place_id;
-    const photos = getPhotoReferences(place_id);
+    const photos = await getPhotoReferences(place_id);
     const images = [];
-    for (const photo of (await photos)) {
+    const url = photos.url;
+    for (const photo of (photos).photoReferences) {
         const response = (await axios.get(`https://maps.googleapis.com/maps/api/place/photo?maxwidth=600&photo_reference=${photo}&key=AIzaSyDD0GxnUVXCqw-diJgj35DY_uOOVb8HJBE`));
         images.push(response.config.url);
     }
-    res.json(images);
+    res.json({images: images, url: url});
 };
 
 export const getSomething = async (req, res) => {

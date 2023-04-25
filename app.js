@@ -17,6 +17,15 @@ mongoose.connect(CONNECTION_STRING);
 const app = express()
 app.use(cors())
 app.use(express.json());
+import bodyParser from "body-parser";
+//require("body-parser");
+import {Configuration, OpenAIApi} from "openai";
+
+//const { Configuration, OpenAIApi } = require("openai");
+const configuration = new Configuration({
+    apiKey: "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",
+});
+const openai = new OpenAIApi(configuration);
 TuitsController(app);
 HelloController(app)
 UserController(app)
@@ -27,6 +36,15 @@ BookingsController(app)
 CityDetailsController(app)
 UpcomingTripsController(app)
 
-//testing if Chetana can push
+app.post("/chat", async (req, res) => {
+    // Get the prompt from the request
+    const { prompt } = req.body;
+    const completion = await openai.createCompletion({
+        model: "text-davinci-003",
+        prompt: prompt,
+    });
+    res.send(completion.data);
+});
+
 
 app.listen(process.env.PORT || 4000);
