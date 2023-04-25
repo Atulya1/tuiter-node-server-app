@@ -7,3 +7,5 @@ export const updateUserExperience = (userExperienceid, userExperience) => userEx
 export const findUserExperienceById = (userExperienceId) => userExperienceModel.findOne({_id: userExperienceId});
 
 export const findUserExperienceByUserId = (userId) => userExperienceModel.find({user_id: userId});
+
+export const findUserExperienceByPlaceId = (placeId) => userExperienceModel.find({place_id: placeId});

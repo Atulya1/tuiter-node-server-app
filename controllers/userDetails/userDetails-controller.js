@@ -37,7 +37,7 @@ const deleteUser = async (req, res) => {
 
 const findUserById  = async (req, res) => {
     const userId = req.params.userId;
-    const userDetails = await userDetailsDao.findUserById(userId)
+    const userDetails = await userDetailsDao.findUserById(userId);
     res.json(userDetails);
 }
 
