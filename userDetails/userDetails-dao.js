@@ -8,3 +8,4 @@ export const findUserById = (userId) => userDetailsModel.findOne({_id: userId});
 
 export const findUserByUsername = (userName) => userDetailsModel.findOne({username: userName});
 
+export const findAdmin = () => userDetailsModel.findOne({role: "admin"});

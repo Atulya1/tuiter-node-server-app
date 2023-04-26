@@ -10,7 +10,8 @@ const userDetailsSchema = new Schema({
     email: String,
     dob: String,
     phone_number: String,
-    photo :String
+    photo :String,
+    role : String
 },{collection:'userDetails'})
 
 export default userDetailsSchema;
