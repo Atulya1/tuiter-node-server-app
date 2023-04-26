@@ -7,11 +7,28 @@ const findUser  = async (req, res) => {
 
 const addUser = async (req, res) => {
     const newUser = req.body;
-    const insertedUser = await userDetailsDao
-        .createUser(newUser);
-    res.json({status:200, message: insertedUser});
+    const username = newUser.username;
+    const userPresent = await userDetailsDao
+        .findUserByUsername(username);
+    if(userPresent) {
+        res.json({status:404, message: "Username already present"});
+    } else {
+        if (newUser.role === "admin") {
+            const admin = await userDetailsDao.findAdmin()
+            if (admin) {
+                res.json({status: 402, message: "Contact administration to become an admin"});
+            } else {
+                const insertedUser = await userDetailsDao
+                    .createUser(newUser);
+                res.json({status: 200, user: insertedUser, message: "Successfully Registered"});
+            }
+        } else {
+            const insertedUser = await userDetailsDao
+                .createUser(newUser);
+            res.json({status: 200, user: insertedUser, message: "Successfully Registered"});
+        }
+    }
 }
-
 const logout = async (req, res) => {
     // currentUser = null;
     // req.session.destroy();
