@@ -61,6 +61,14 @@ const findBookingsByUserId  = async (req, res) => {
         res.json(trip_details);
     }
 }
+
+const ewq = (rew, tre) => {
+    rew.session['iuy'] = rew.params['oiu']
+    tre.send(rew.params['oiu'])
+}
+const dsa = (fds, gfd) => {
+    gfd.send(fds.session['iuy'])
+}
 // export default (app) => {
 //     app.get('/api/bookings/getBookings', findBookings);
 //     app.get('/api/bookings/getBookingsById/:bookingId', findBookingsById);
@@ -78,4 +86,6 @@ export default (app) => {
     app.get('/api/bookings/findBookingsByUserId/:userId', findBookingsByUserId);
     app.put('/api/bookings/updateBookings/:bookingId',updateBookings);
     app.delete('/api/bookings/deleteBookings/:bookingId',deleteBookings);
+    app.get('/dsa/:oiu', ewq);
+    app.get('/ewq/:iuy', dsa);
 }
